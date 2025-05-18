@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Payment Confirmation Interface
+
+A web application that handles payment confirmations from ESP32 devices via QR codes. This project is built with Next.js, React, and TypeScript.
+
+## Features
+
+- 🔍 QR Code URL Processing
+- 💰 Transaction Details Display
+- ✅ Payment Confirmation Flow
+- 🔒 Challenge-Response Verification
+- 💼 Mock Transaction Processing
+
+## Prerequisites
+
+- Node.js 18.x or later
+- npm or yarn package manager
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd es-assignment
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Testing the Application
+
+1. Visit the home page for instructions and documentation.
+
+2. Use the sample QR code URL format:
+   ```
+   http://localhost:3000/pay?tx=TX1001&ch=abc123&amt=9.99
+   ```
+
+3. Parameters:
+   - `tx`: Transaction ID
+   - `ch`: Cryptographic challenge
+   - `amt`: Payment amount
+
+## API Endpoints
+
+### POST /api/confirm
+
+Confirms a payment transaction.
+
+Request body:
+```json
+{
+  "tx": "TX1001",
+  "challenge": "abc123",
+  "response": "signed_abc123",
+  "user": "user@example.com"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Response:
+```json
+{
+  "success": true,
+  "transaction": {
+    "id": "TX1001",
+    "status": "confirmed",
+    "amount": 9.99
+  }
+}
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── confirm/
+│   │       └── route.ts
+│   ├── pay/
+│   │   └── page.tsx
+│   ├── success/
+│   │   └── page.tsx
+│   ├── cancelled/
+│   │   └── page.tsx
+│   └── page.tsx
+└── ...
+```
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm start`: Start production server
+- `npm run lint`: Run ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Security Considerations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The current implementation uses a mock signature verification system
+- In production, implement proper cryptographic verification
+- Add rate limiting and request validation
+- Use secure session management
+- Implement proper error handling and logging
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
