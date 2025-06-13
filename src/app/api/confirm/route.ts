@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       const transaction: Transaction = {
         amount,
         challenge,
-        status: 'cancelled',
+        status: 'insufficient',
         timestamp: new Date().toISOString(),
       };
       global.mockDb.transactions.set(tx_id, transaction);
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
           balance: currentBalance,
           required: amount,
           tx_id,
-          status: 'cancelled',
+          status: 'insufficient',
         },
         { status: 400 }
       );

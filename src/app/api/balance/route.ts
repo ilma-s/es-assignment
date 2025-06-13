@@ -4,7 +4,7 @@ import { Transaction } from '../types';
 // Mock user data - in a real app, this would be in a database
 const mockUser = {
   email: 'user@example.com',
-  initialBalance: 100.00, // Starting with $100
+  initialBalance: 10000.00, // Starting with $100
 };
 
 // Initialize mockDb if it doesn't exist

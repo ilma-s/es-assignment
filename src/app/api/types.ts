@@ -1,7 +1,7 @@
 export interface Transaction {
   amount: number;
   challenge: string;
-  status: 'pending' | 'confirmed' | 'cancelled';
+  status: 'pending' | 'confirmed' | 'cancelled' | 'insufficient';
   timestamp: string;
 }
 

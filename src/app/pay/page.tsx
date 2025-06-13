@@ -109,8 +109,27 @@ export default function PaymentPage() {
     }
   };
 
-  const handleCancel = () => {
-    router.push(`/cancelled?tx=${txId}`);
+  const handleCancel = async () => {
+    if (!txId) return;
+    setIsLoading(true);
+    try {
+      await fetch('/api/cancel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tx_id: txId,
+          challenge,
+          amount: parseFloat(amount ?? '0'),
+        }),
+      });
+    } catch (e) {
+      console.error('Cancel error', e);
+    } finally {
+      setIsLoading(false);
+      router.push(`/cancelled?tx=${txId}`);
+    }
   };
 
   return (
